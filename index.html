@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather or Naut</title>
+</head>
+<body>
+    <header>
+        <h1>Weather Dashboard</h1>
+    </header>
+
+    <main>
+        <div class="col-3 background-navy">
+            <div class="card">
+                <h3 class="card-header">Search for a City:</h3>
+                <form class="search-bar">
+                    <input type="text" />
+                    <button type="submit"><i></i></button>
+                </form>
+                <div class="search-history-container">
+                    <div class="history-item">Example</div>
+                    <div class="history-item">Example</div>
+                    <div class="history-item">Example</div>
+                    <div class="history-item">Example</div>
+                    <div class="history-item">Example</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-9 background-gray">
+            <div class="card main-results">
+                <h2>City Name (MM/DD/YYYY) <span><i>icon</i></span></h2>
+                <p>Temperature: <span>result</span></p>
+                <p>Humidity: <span>result</span></p>
+                <p>Wind Speed: <span>result</span></p>
+                <p>UV Index: <span>result</span></p>
+            </div>
+            <div class="5-day-forecast-container">
+                <h3>5-Day-Forecast</h3>
+                <div class="days-container">
+                    <div class="col-2 card forecast-day-item">Day 1</div>
+                    <div class="col-2 card forecast-day-item">Day 2</div>
+                    <div class="col-2 card forecast-day-item">Day 3</div>
+                    <div class="col-2 card forecast-day-item">Day 4</div>
+                    <div class="col-2 card forecast-day-item">Day 5</div>
+                </div>
+            </div>
+        </div>
+        
+    </main>
+    
+</body>
+</html>
