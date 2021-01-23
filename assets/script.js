@@ -13,18 +13,35 @@ var searchButtonEl = document.getElementById("search-btn");
 function findCity(event) {
     event.preventDefault();
     var userInput = document.getElementById("user-input").value;
-    var OpenWeatherUrl = "http://api.openweathermap.org/data/2.5/find?q=" + 
+    var OpenWeatherUrl = "http://api.openweathermap.org/data/2.5/forecast?q=" + 
         userInput + 
         "&units=imperial&appid=90a1a6aec56ae63b28d2c0abbe206092"; // api key
+    if (userInput === "") {
+        alert("something went wrong!")
+    } else {
+        fetch(OpenWeatherUrl).then(function(response) {
+            return response.json();
+        }).then(function(response) {
+            console.log(response); // use to display city name on page
 
-    fetch(OpenWeatherUrl).then(function(response) {
-        return response.json();
-    }).then(function(response) {
-        // console.log(response.list[0].main.temp_max);
-        // console.log(response.list[0].main.temp_min);
-        // console.log(response.list[0].main.feels_like);
-        console.log(response);
-    });
+            if (response) {
+                return fetch("https://api.openweathermap.org/data/2.5/onecall?" + 
+                    "lat=" + response.city.coord.lat + "&lon=" + response.city.coord.lon + 
+                    "&exclude=minutely,hourly&units=imperial&appid=90a1a6aec56ae63b28d2c0abbe206092");
+            }
+        }).then(function(secondResponse) {
+            return secondResponse.json();
+        }).then(function(secondResponse) {
+            // console.log(secondResponse);
+            console.log(new Date()); // current date
+            console.log(secondResponse.current.weather[0].icon); // use to pull up icon
+            console.log(secondResponse.current.temp) // current temp
+            console.log(secondResponse.current.feels_like); // feels like temp
+            console.log(secondResponse.current.humidity); // humidity
+            console.log(secondResponse.current.wind_speed); // wind speed
+            console.log(secondResponse.current.wind_deg); // wind chill
+        });
+    }
     
 };
 
