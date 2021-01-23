@@ -13,30 +13,32 @@
     <main>
         <div class="col-3 background-navy">
             <div class="card">
-                <form class="search-bar">
-                    <h3 class="card-header">Search for a City:</h3>
-                    <input id="user-input" type="text" placeholder="Enter City Name" />
+                <form id="search-form" class="search-bar">
+                    <label class="form-label">Search for a City:</label>
+                    <input name="city-name" id="city-name" type="text" autofocus="true" class="form-input" placeholder="Enter City Name" />
                     <button id="search-btn" type="submit"><i></i>Search</button>
                 </form>
                 <div class="search-history-container">
-                    <div class="history-item">Example</div>
-                    <div class="history-item">Example</div>
-                    <div class="history-item">Example</div>
-                    <div class="history-item">Example</div>
-                    <div class="history-item">Example</div>
+                    <div class="history-item">Search History Example 1</div>
+                    <div class="history-item">Search History Example 2</div>
+                    <div class="history-item">Search History Example 3</div>
+                    <div class="history-item">Search History Example 4</div>
+                    <div class="history-item">Search History Example 5</div>
                 </div>
             </div>
         </div>
 
-        <div class="col-9 background-gray">
-            <div class="card main-results">
-                <h2>City Name (MM/DD/YYYY) <span><i>icon</i></span></h2>
-                <p>Temperature: <span>result</span></p>
-                <p>Humidity: <span>result</span></p>
-                <p>Wind Speed: <span>result</span></p>
-                <p>UV Index: <span>result</span></p>
+        <div id="search-results-container" class="col-9 background-gray hide">
+            <div id="current-weather-container" class="card main-results">
+                <h3 id="city-header"> <span id="date-span"></span><i>(icon goes here)</i></h3>
+                <p>Temperature: <span id="current-temp"></span></p>
+                <p>Feels Like: <span id="feels-like"></span></p>
+                <p>Humidity: <span id="current-humidity"></span></p>
+                <p>UV Index: <span id="uv-index"></span></p>
+                <p>Wind Speed: <span id="wind-speed"></span></p>
+                <p>Wind Chill: <span id="wind-chill"></span></p>
             </div>
-            <div class="5-day-forecast-container">
+            <div id="five-day-container" class="five-day-forecast-container">
                 <h3>5-Day-Forecast</h3>
                 <div class="days-container">
                     <div class="col-2 card forecast-day-item">Day 1</div>
