@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather or Naut</title>
+    <link rel="stylesheet" href="./assets/styles.css"/>
 </head>
 <body>
     <header>
@@ -28,11 +29,10 @@
             </div>
         </div>
 
-        <div id="search-results-container" class="col-9 background-gray hide">
-            <div class="card current-results">
-                <h3 id="city-header"></h3><span><i>(icon goes here)</i></span>
-                <div id="current-weather-container">
-                    <span id="date-span"></span>
+        <div class="col-9 background-gray">
+            <div id="current-weather-container" class="card current-results hide">
+                <h3 id="city-header"></h3>
+                <div>
                     <p>Temperature: <span id="current-temp"></span></p>
                     <p>Feels Like: <span id="feels-like"></span></p>
                     <p>Humidity: <span id="current-humidity"></span></p>
@@ -41,9 +41,9 @@
                     <p>Wind Chill: <span id="wind-chill"></span></p>
                 </div>
             </div>
-            <div id="five-day-container" class="five-day-forecast-container">
+            <div id="five-day-container" class="five-day-container hide">
                 <h3>5-Day-Forecast</h3>
-                <div class="days-container">
+                <div id="each-day-container" class="each-day-container">
                     <div class="col-2 card forecast-day-item">Day 1</div>
                     <div class="col-2 card forecast-day-item">Day 2</div>
                     <div class="col-2 card forecast-day-item">Day 3</div>
