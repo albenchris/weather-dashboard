@@ -29,14 +29,17 @@
         </div>
 
         <div id="search-results-container" class="col-9 background-gray hide">
-            <div id="current-weather-container" class="card main-results">
-                <h3 id="city-header"> <span id="date-span"></span><i>(icon goes here)</i></h3>
-                <p>Temperature: <span id="current-temp"></span></p>
-                <p>Feels Like: <span id="feels-like"></span></p>
-                <p>Humidity: <span id="current-humidity"></span></p>
-                <p>UV Index: <span id="uv-index"></span></p>
-                <p>Wind Speed: <span id="wind-speed"></span></p>
-                <p>Wind Chill: <span id="wind-chill"></span></p>
+            <div class="card current-results">
+                <h3 id="city-header"></h3><span><i>(icon goes here)</i></span>
+                <div id="current-weather-container">
+                    <span id="date-span"></span>
+                    <p>Temperature: <span id="current-temp"></span></p>
+                    <p>Feels Like: <span id="feels-like"></span></p>
+                    <p>Humidity: <span id="current-humidity"></span></p>
+                    <p>UV Index: <span id="uv-index"></span></p>
+                    <p>Wind Speed: <span id="wind-speed"></span></p>
+                    <p>Wind Chill: <span id="wind-chill"></span></p>
+                </div>
             </div>
             <div id="five-day-container" class="five-day-forecast-container">
                 <h3>5-Day-Forecast</h3>
