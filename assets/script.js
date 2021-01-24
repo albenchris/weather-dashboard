@@ -10,6 +10,10 @@ var currentDate = new Date();
 
 var searchFormEl = document.getElementById("search-form");
 var userInput = document.getElementById("city-name");
+var searchHistoryEl = document.getElementById("search-history-container");
+var cityNamesArr = JSON.parse(localStorage.getItem("cityNamesArr")) || [];
+// var cityButtonsEl = document.getElementById(""city-button-" + cityNamesArr.id");
+
 var currentWeatherEl = document.getElementById("current-weather-container");
 var fiveDayEl = document.getElementById("five-day-container");
 var eachDayEl = document.getElementById("each-day-container");
@@ -25,6 +29,7 @@ function getWeather(city) {
     }).then(function(response) {
         // console.log(response); // use to display city name on page
         document.getElementById("city-header").textContent = response.city.name + " " + currentDate;
+        saveCityName(response);
 
         if (response) {
             return fetch("https://api.openweathermap.org/data/2.5/onecall?" + 
@@ -84,14 +89,34 @@ function displayFiveDay(weather) {
         fiveDayEl.appendChild(dailyLowEl);
         fiveDayEl.appendChild(dailyHumidityEl);
     }
-    
 };
 
+function saveCityName(response) {
+    var cityName = response.city.name;
+    cityNamesArr.push(cityName);
+    cityNamesArr.sort(function(a,b){return b - a});
 
-// displayCurrent();
-// displayFiveDay();
+    localStorage.setItem("cityNamesArr", JSON.stringify(cityNamesArr));
+
+    createSearchButton();
+    
+    console.log(cityNamesArr);
+};
+
+function createSearchButton() {
+    searchHistoryEl.innerHTML = "";
+
+    for (var i=0; i<cityNamesArr.length; i++) {
+        var cityNameButton = document.createElement("button");
+        // cityNameButton.setAttribute("id", "city-button-" + i);
+        cityNameButton.setAttribute("city-name", cityNamesArr[i]);
+        cityNameButton.textContent = cityNamesArr[i];
+
+        searchHistoryEl.appendChild(cityNameButton);
+    }
 
 
+};
 
 
 
@@ -109,4 +134,16 @@ function formSubmitHandler(event) {
 
 };
 
+function buttonClickHandler(event) {
+    var cityName = event.target.getAttribute("city-name");
+
+    if (cityName) {
+        getWeather(cityName);
+        console.log(cityName);
+    }
+};
+
+createSearchButton();
+
 searchFormEl.addEventListener("submit", formSubmitHandler);
+searchHistoryEl.addEventListener("click", buttonClickHandler);
