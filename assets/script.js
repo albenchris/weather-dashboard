@@ -1,10 +1,8 @@
 // CHECKLIST:
 // style using grid system
 
-// city typed into input is added to search history section
 // style UV index with color based on favorable, moderate or severe conditions
 // 5-day forecast displays date, weather icon, temp, humidity
-// cities in search history act as buttons to gather information
 
 var currentDate = new Date();
 
@@ -21,14 +19,14 @@ var eachDayEl = document.getElementById("each-day-container");
 
 function getWeather(city) {
     var OpenWeatherUrl = "http://api.openweathermap.org/data/2.5/forecast?q=" + 
-        city + 
-        "&units=imperial&appid=90a1a6aec56ae63b28d2c0abbe206092"; // api key
+        city + "&units=imperial&appid=90a1a6aec56ae63b28d2c0abbe206092";
     
     fetch(OpenWeatherUrl).then(function(response) {
         return response.json();
     }).then(function(response) {
-        // console.log(response); // use to display city name on page
-        document.getElementById("city-header").textContent = response.city.name + " " + currentDate;
+        var iconIMG = "<img src=http://openweathermap.org/img/wn/" + response.list[0].weather[0].icon + "@2x.png />";
+
+        document.getElementById("city-header").innerHTML = response.city.name + " " + currentDate + iconIMG;
         saveCityName(response);
 
         if (response) {
@@ -56,7 +54,7 @@ function displayCurrent(weather) {
 };
 
 function displayFiveDay(weather) {
-    console.log(weather);
+    // console.log(weather);
     fiveDayEl.classList.remove("hide");
     eachDayEl.innerHTML = "";
 
@@ -94,13 +92,11 @@ function displayFiveDay(weather) {
 function saveCityName(response) {
     var cityName = response.city.name;
     cityNamesArr.push(cityName);
-    cityNamesArr.sort(function(a,b){return b - a});
+    cityNamesArr.reverse((a,b) => a - b);
 
     localStorage.setItem("cityNamesArr", JSON.stringify(cityNamesArr));
 
     createSearchButton();
-    
-    console.log(cityNamesArr);
 };
 
 function createSearchButton() {
@@ -114,12 +110,7 @@ function createSearchButton() {
 
         searchHistoryEl.appendChild(cityNameButton);
     }
-
-
 };
-
-
-
 
 function formSubmitHandler(event) {
     event.preventDefault();
@@ -139,7 +130,6 @@ function buttonClickHandler(event) {
 
     if (cityName) {
         getWeather(cityName);
-        console.log(cityName);
     }
 };
 
