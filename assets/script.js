@@ -24,6 +24,7 @@ function getWeather(city) {
     fetch(OpenWeatherUrl).then(function(response) {
         return response.json();
     }).then(function(response) {
+        console.log(response);
         var iconIMG = "<img src=http://openweathermap.org/img/wn/" + response.list[0].weather[0].icon + "@2x.png />";
 
         document.getElementById("city-header").innerHTML = response.city.name + " " + currentDate + iconIMG;
@@ -36,25 +37,25 @@ function getWeather(city) {
         }
     }).then(function(secondResponse) {
         return secondResponse.json();
-    }).then(function(weather) {
-        displayCurrent(weather);
-        displayFiveDay(weather);
+    }).then(function(weatherData) {
+        displayCurrent(weatherData);
+        displayFiveDay(weatherData);
     }); 
 };
 
-function displayCurrent(weather) {
+function displayCurrent(weatherData) {
     currentWeatherEl.classList.remove("hide");
 
-    document.getElementById("current-temp").textContent = weather.current.temp + "°F";
-    document.getElementById("feels-like").textContent = weather.current.feels_like + "°F";
-    document.getElementById("current-humidity").innerHTML = weather.current.humidity + "%";
-    document.getElementById("uv-index").innerHTML = weather.current.uvi;
-    document.getElementById("wind-speed").innerHTML = weather.current.wind_speed + "mph";
-    document.getElementById("wind-chill").innerHTML = weather.current.wind_deg + "°F";
+    document.getElementById("current-temp").textContent = weatherData.current.temp + "°F";
+    document.getElementById("feels-like").textContent = weatherData.current.feels_like + "°F";
+    document.getElementById("current-humidity").innerHTML = weatherData.current.humidity + "%";
+    document.getElementById("uv-index").innerHTML = weatherData.current.uvi;
+    document.getElementById("wind-speed").innerHTML = weatherData.current.wind_speed + "mph";
+    document.getElementById("wind-chill").innerHTML = weatherData.current.wind_deg + "°F";
 };
 
-function displayFiveDay(weather) {
-    // console.log(weather);
+function displayFiveDay(weatherData) {
+    console.log(weatherData);
     fiveDayEl.classList.remove("hide");
     eachDayEl.innerHTML = "";
 
@@ -68,20 +69,20 @@ function displayFiveDay(weather) {
             return date;
         }
         eachDateEl.textContent = currentDate.addDays(d);
-        var dailyWeatherIcon = document.createElement("span"); // place inside eachDateEl
-        dailyWeatherIcon.textContent = "";
+        var dailyWeatherIcon = document.createElement("img");
+        dailyWeatherIcon.setAttribute("src", "http://openweathermap.org/img/wn/" + weatherData.daily[d].weather[0].icon + "@2x.png");
         eachDateEl.appendChild(dailyWeatherIcon);
         
         fiveDayEl.appendChild(eachDateEl);
 
         var dailyHighEl = document.createElement("p");
-        dailyHighEl.textContent = "High: " + weather.daily[d].temp.max + "°F";
+        dailyHighEl.textContent = "High: " + weatherData.daily[d].temp.max + "°F";
 
         var dailyLowEl = document.createElement("p");
-        dailyLowEl.textContent = "Low: " + weather.daily[d].temp.min + "°F";
+        dailyLowEl.textContent = "Low: " + weatherData.daily[d].temp.min + "°F";
 
         var dailyHumidityEl = document.createElement("p");
-        dailyHumidityEl.textContent = "Humidity: " + weather.daily[d].humidity + "%";
+        dailyHumidityEl.textContent = "Humidity: " + weatherData.daily[d].humidity + "%";
 
         fiveDayEl.appendChild(dailyHighEl);
         fiveDayEl.appendChild(dailyLowEl);
