@@ -3,6 +3,24 @@ body {
     color: rgb(202, 199, 196);
 }
 
+/* UV Index styles start */
+.favorable {
+    background-color: lightgreen;
+    color: black;
+}
+
+.moderate {
+    background-color: yellow;
+    color: black;
+}
+
+.severe {
+    background-color: red;
+    color: black;
+}
+/* UV Index styles end */
+
+/* utility classes */
 .hide {
     display: none;
 }

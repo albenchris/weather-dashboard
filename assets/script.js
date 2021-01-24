@@ -2,7 +2,6 @@
 // style using grid system
 
 // style UV index with color based on favorable, moderate or severe conditions
-// 5-day forecast displays date, weather icon, temp, humidity
 
 var currentDate = new Date();
 
@@ -10,7 +9,6 @@ var searchFormEl = document.getElementById("search-form");
 var userInput = document.getElementById("city-name");
 var searchHistoryEl = document.getElementById("search-history-container");
 var cityNamesArr = JSON.parse(localStorage.getItem("cityNamesArr")) || [];
-// var cityButtonsEl = document.getElementById(""city-button-" + cityNamesArr.id");
 
 var currentWeatherEl = document.getElementById("current-weather-container");
 var fiveDayEl = document.getElementById("five-day-container");
@@ -49,7 +47,18 @@ function displayCurrent(weatherData) {
     document.getElementById("current-temp").textContent = weatherData.current.temp + "°F";
     document.getElementById("feels-like").textContent = weatherData.current.feels_like + "°F";
     document.getElementById("current-humidity").innerHTML = weatherData.current.humidity + "%";
-    document.getElementById("uv-index").innerHTML = weatherData.current.uvi;
+
+    var uvIndex = weatherData.current.uvi
+    var uvEl = document.getElementById("uv-index");
+    uvEl.innerHTML = uvIndex;
+    if (uvIndex <= 2) {
+        uvEl.setAttribute("class", "favorable");
+    } else if (uvIndex >= 7) {
+        uvEl.setAttribute("class", "severe");
+    } else {
+        uvEl.setAttribute("class", "moderate");
+    }
+    
     document.getElementById("wind-speed").innerHTML = weatherData.current.wind_speed + "mph";
     document.getElementById("wind-chill").innerHTML = weatherData.current.wind_deg + "°F";
 };
