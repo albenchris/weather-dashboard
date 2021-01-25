@@ -36,10 +36,6 @@ button {
     font-size: 20px;
 }
 
-input {
-    
-}
-
 button {
     margin: 20px 0 0 0;
     border: 2px solid var(--medium);
@@ -72,9 +68,9 @@ button {
 /* UV Index styles end */
 
 /* utility classes start */
-/* .hide {
+.hide {
     display: none;
-} */
+}
 
 .background-blue {
     background-color: var(--primary);

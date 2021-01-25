@@ -75,13 +75,13 @@ function displayFiveDay(weatherData) {
         var dailyWeatherIcon = document.createElement("img");
         dailyWeatherIcon.setAttribute("src", "http://openweathermap.org/img/wn/" + weatherData.daily[d].weather[0].icon + "@2x.png");
 
-        var dailyHighEl = document.createElement("p");
+        var dailyHighEl = document.createElement("div");
         dailyHighEl.textContent = "High: " + weatherData.daily[d].temp.max + "°F";
 
-        var dailyLowEl = document.createElement("p");
+        var dailyLowEl = document.createElement("div");
         dailyLowEl.textContent = "Low: " + weatherData.daily[d].temp.min + "°F";
 
-        var dailyHumidityEl = document.createElement("p");
+        var dailyHumidityEl = document.createElement("div");
         dailyHumidityEl.textContent = "Humidity: " + weatherData.daily[d].humidity + "%";
 
         singleDayEl.appendChild(eachDateEl);
