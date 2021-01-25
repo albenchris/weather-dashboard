@@ -1,13 +1,4 @@
 // global variables start
-// var currentDate = new Date()
-// localTime = currentDate.getTime()
-// localOffset = currentDate.getTimezoneOffset() * 60000
-// utc = localTime + localOffset
-// var thisCity = utc + (1000 * -weatherData.timezone_offset)
-// newDate = new Date(thisCity);
-
-// console.log(moment.tz.names());
-
 var searchFormEl = document.getElementById("search-form");
 var userInput = document.getElementById("city-name");
 var searchHistoryEl = document.getElementById("search-history-container");
@@ -15,7 +6,7 @@ var cityNamesArr = JSON.parse(localStorage.getItem("cityNamesArr")) || [];
 
 var currentWeatherEl = document.getElementById("current-weather-container");
 var fiveDayEl = document.getElementById("five-day-container");
-var eachDayEl = document.getElementById("each-day-container");
+var eachDayContainerEl = document.getElementById("each-day-container");
 // global variables end
 
 // function definitions start
@@ -26,7 +17,6 @@ function getWeather(city) {
     fetch(OpenWeatherUrl).then(function(response) {
         return response.json();
     }).then(function(response) {
-        // console.log(response);
         var iconIMG = "<img src=http://openweathermap.org/img/wn/" + response.list[0].weather[0].icon + "@2x.png />";
 
         document.getElementById("city-header").innerHTML = 
@@ -43,7 +33,6 @@ function getWeather(city) {
     }).then(function(secondResponse) {
         return secondResponse.json();
     }).then(function(weatherData) {
-        changeTimeAndDate(weatherData);
         displayCurrent(weatherData);
         displayFiveDay(weatherData);
     }); 
@@ -52,7 +41,7 @@ function getWeather(city) {
 function displayCurrent(weatherData) {
     currentWeatherEl.classList.remove("hide");
 
-    document.getElementById("current-date").textContent = thisCityDate;
+    document.getElementById("current-date").textContent = moment().format("dddd, MMMM Do");
 
     document.getElementById("current-temp").textContent = weatherData.current.temp + "°F";
     document.getElementById("feels-like").textContent = weatherData.current.feels_like + "°F";
@@ -74,26 +63,17 @@ function displayCurrent(weatherData) {
 };
 
 function displayFiveDay(weatherData) {
-    // console.log(weatherData);
     fiveDayEl.classList.remove("hide");
-    eachDayEl.innerHTML = "";
+    eachDayContainerEl.innerHTML = "";
 
-    // date, weather icon
     for (var d=0; d<5; d++) {
+        var singleDayEl = document.createElement("div");
+        singleDayEl.setAttribute("class", "card col-1 background-blue");
         var eachDateEl = document.createElement("h4");
 
-        function addDays(date, days) {
-            var copy = new Date(Number(date));
-            copy.setDate(date.getDate() + days);
-            return copy;
-        };
-
-        eachDateEl.textContent = addDays(thisCityDate, d); /*moment().tz(weatherData.timezone).add(d, "days").format("ddd MMM Do")*/
+        eachDateEl.textContent = moment().add(d, "days").format("ddd, MMM Do");
         var dailyWeatherIcon = document.createElement("img");
         dailyWeatherIcon.setAttribute("src", "http://openweathermap.org/img/wn/" + weatherData.daily[d].weather[0].icon + "@2x.png");
-        eachDateEl.appendChild(dailyWeatherIcon);
-        
-        fiveDayEl.appendChild(eachDateEl);
 
         var dailyHighEl = document.createElement("p");
         dailyHighEl.textContent = "High: " + weatherData.daily[d].temp.max + "°F";
@@ -104,22 +84,13 @@ function displayFiveDay(weatherData) {
         var dailyHumidityEl = document.createElement("p");
         dailyHumidityEl.textContent = "Humidity: " + weatherData.daily[d].humidity + "%";
 
-        fiveDayEl.appendChild(dailyHighEl);
-        fiveDayEl.appendChild(dailyLowEl);
-        fiveDayEl.appendChild(dailyHumidityEl);
+        singleDayEl.appendChild(eachDateEl);
+        singleDayEl.appendChild(dailyWeatherIcon);
+        singleDayEl.appendChild(dailyHighEl);
+        singleDayEl.appendChild(dailyLowEl);
+        singleDayEl.appendChild(dailyHumidityEl);
+        fiveDayEl.appendChild(singleDayEl);
     }
-};
-
-function changeTimeAndDate(weatherData) {
-    var currentDate = new Date();
-    console.log(currentDate);
-    localTime = currentDate.getTime();
-    localOffset = currentDate.getTimezoneOffset() * 60000;
-    utc = localTime + localOffset;
-    var thisCityTime = utc + (1000 * weatherData.timezone_offset);
-    thisCityDate = new Date(thisCityTime);
-
-    return thisCityDate;
 };
 
 function saveCityName(response) {
@@ -152,10 +123,7 @@ function formSubmitHandler(event) {
     if (cityName) {
         getWeather(cityName);
         userInput.value = "";
-    } else {
-        console.log("something went wrong");
     }
-
 };
 
 function buttonClickHandler(event) {
