@@ -12,7 +12,7 @@ var eachDayContainerEl = document.getElementById("each-day-container");
 // function definitions start
 function getWeather(city) {
     var OpenWeatherUrl = "http://api.openweathermap.org/data/2.5/forecast?q=" + 
-        city + "&units=imperial&appid=90a1a6aec56ae63b28d2c0abbe206092";
+        city + "&appid=90a1a6aec56ae63b28d2c0abbe206092";
     
     fetch(OpenWeatherUrl).then(function(response) {
         return response.json();
