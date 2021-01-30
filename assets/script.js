@@ -11,13 +11,13 @@ var eachDayContainerEl = document.getElementById("each-day-container");
 
 // function definitions start
 function getWeather(city) {
-    var OpenWeatherUrl = "http://api.openweathermap.org/data/2.5/forecast?q=" + 
+    var OpenWeatherUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + 
         city + "&appid=90a1a6aec56ae63b28d2c0abbe206092";
     
     fetch(OpenWeatherUrl).then(function(response) {
         return response.json();
     }).then(function(response) {
-        var iconIMG = "<img src=http://openweathermap.org/img/wn/" + response.list[0].weather[0].icon + "@2x.png />";
+        var iconIMG = "<img src=https://openweathermap.org/img/wn/" + response.list[0].weather[0].icon + "@2x.png />";
 
         document.getElementById("city-header").innerHTML = 
             response.city.name + ", " +
@@ -73,7 +73,7 @@ function displayFiveDay(weatherData) {
 
         eachDateEl.textContent = moment().add(d, "days").format("ddd, MMM Do");
         var dailyWeatherIcon = document.createElement("img");
-        dailyWeatherIcon.setAttribute("src", "http://openweathermap.org/img/wn/" + weatherData.daily[d].weather[0].icon + "@2x.png");
+        dailyWeatherIcon.setAttribute("src", "https://openweathermap.org/img/wn/" + weatherData.daily[d].weather[0].icon + "@2x.png");
 
         var dailyHighEl = document.createElement("div");
         dailyHighEl.textContent = "High: " + weatherData.daily[d].temp.max + "°F";
