@@ -89,7 +89,7 @@ function displayFiveDay(weatherData) {
         singleDayEl.appendChild(dailyHighEl);
         singleDayEl.appendChild(dailyLowEl);
         singleDayEl.appendChild(dailyHumidityEl);
-        fiveDayEl.appendChild(singleDayEl);
+        eachDayContainerEl.appendChild(singleDayEl);
     }
 };
 
